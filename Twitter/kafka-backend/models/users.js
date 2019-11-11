@@ -31,6 +31,10 @@ const userSchema = new schema(
       trim: true,
       required: true
     },
+    is_active: {
+      type: Boolean,
+      default: true
+    },
     city: {
       type: String,
       trim: true,
@@ -54,36 +58,52 @@ const userSchema = new schema(
       trim: true,
       default: "userplaceholder.png"
     },
+    conversations: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Conversation"
+    }],
     tweets: [{
         tweet: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Tweet"
         },
-        retweeted: {
+        is_retweeted: {
             type: Boolean,
             default: false
         }
     }],
+    bookmarks: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tweet"
+    }],
     replied: [{
-        tweet: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Tweet"
-        }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tweet"
     }],
     liked: [{
-        tweet: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Tweet"
-        }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tweet"
     }],
     followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    }]
+    }],
+    following: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+  }],
+    subscribed_lists: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "List"
+    }],
+    owned_lists: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "List"
+    }],
   },
   { versionKey: false }
 );
 
 const User = mongoose.model("User", userSchema);
 
-exports.User = User;
+module.exports = User;

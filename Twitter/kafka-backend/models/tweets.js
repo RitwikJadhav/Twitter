@@ -46,11 +46,15 @@ const tweetSchema = new schema(
     retweeters: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    }]
+    }],
+    view_count : {
+        type : Number
+    }
+
   },
   { versionKey: false }
 );
 
 const Tweet = mongoose.model("Tweet", tweetSchema);
 
-exports.Tweet = Tweet;
+module.exports = Tweet;
